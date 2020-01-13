@@ -27,11 +27,9 @@ public class MainServiceTest {
 	@Test
 	public void getUserList() throws Exception {
 		
-		//MainDAO dao = context.getBean("mainDAO", MainDAO.class);
-		
 		List<UserVO> list = mainService.getUserList();
 		for(UserVO vo : list) {
-			System.out.println(vo);
+			System.out.println(vo.getName());
 		}
 		
 	}

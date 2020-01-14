@@ -26,6 +26,7 @@ public class MainServiceTest {
 	
 	@Test
 	public void getUserList() throws Exception {
+		//test
 		List<UserVO> list = mainService.getUserList();
 		for(UserVO vo : list) {
 			System.out.println(vo.getName());

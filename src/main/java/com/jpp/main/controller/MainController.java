@@ -1,6 +1,7 @@
 package com.jpp.main.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -49,7 +50,6 @@ public class MainController {
 		return mav;
 	}
 	
-	
 	@PostMapping("/api2")
 	@ResponseBody
 	public String api(@RequestBody String test) throws Exception {
@@ -62,6 +62,17 @@ public class MainController {
 		return "{\"good\":\"res\"}";
 	}
 	
-	
+	@PostMapping("/api2")
+   @ResponseBody
+   public String httpApi(@RequestBody Map<String, Object> test) throws Exception {
+      String rs = "good";
+      
+      
+      
+      
+      
+      return "{\"good\":\"res\"}";
+   }
+
 	
 }

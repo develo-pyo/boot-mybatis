@@ -22,6 +22,15 @@ import com.jpp.web.constants.ConstantsEnum;
 public class HttpUtil {
     
    private static final Logger logger = LoggerFactory.getLogger(HttpUtil.class);
+   private static final String UTF_8 = "UTF-8";
+   
+   public String requestApi(URLConnection uc, Map<String, Object> params) {
+      return requestApi(uc, params, 0, UTF_8, UTF_8);
+   }
+   
+   public String requestApiWithJsonForm(URLConnection uc, Map<String, Object> params) {
+      return requestApiWithJsonForm(uc, params, 0, UTF_8);
+   }
    
    public String requestApi(URLConnection uc, Map<String, Object> params, int expectedHttpStatus, String requestCharset, String responseCharset) {
       

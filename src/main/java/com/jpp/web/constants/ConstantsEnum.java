@@ -13,9 +13,7 @@ public class ConstantsEnum {
         E_LENGTH(101, "input parameter length error"),  // 자리수 초과 에러
         E_PARAM_NULL(102, "input parameter is null"),  // 필수값 누락 에러
         E_FORMAT(103, "input parameter data format error"), // 파싱 에러
-        E_STB(104, "stb type error"), //셋탑 미지원 에러
-        E_NETWORK(105, "network error"), //네트워크 에러
-        INVAILD_TOKEN (9, "expired token error"); //유효하지 않은 토큰
+        E_NETWORK(105, "network error"); //네트워크 에러
         
         private int code;
         private String message;

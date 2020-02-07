@@ -3,7 +3,7 @@ package com.jpp.web.util.HttpUtil;
 import java.util.Map;
 
 @SuppressWarnings("unused")
-public class URLConnection {
+public class CustomURLConnection {
    
    private final int tryCount;
    private final int connectionTimeOut;
@@ -13,12 +13,12 @@ public class URLConnection {
    private final Map<String, Object> header;
    
    public static class Builder {
-      private String httpMethod;
-      private String url;
-      private int tryCount = 1;
-      private int connectionTimeOut = 1000;
-      private int readTimeOut = 1000;
-      private Map<String, Object> header;
+      private String httpMethod; //required
+      private String url;        //required
+      private int tryCount = 1;  //optional
+      private int connectionTimeOut = 1000;  //optional
+      private int readTimeOut = 1000;     //optional
+      private Map<String, Object> header; //optional
       
       public Builder(String httpMethod, String url) {
          this.httpMethod = httpMethod;
@@ -26,17 +26,17 @@ public class URLConnection {
       }
       
       public Builder setTryCount(int tryCount) {
-         this.tryCount = tryCount;
+         this.tryCount = tryCount<1?1:tryCount;
          return this;
       }
       
       public Builder setConnectionTimeOut(int connectionTimeOut) {
-         this.connectionTimeOut = connectionTimeOut;
+         this.connectionTimeOut = connectionTimeOut<100?1000:connectionTimeOut;
          return this;
       }
       
       public Builder setReadTimeOut(int readTimeOut) {
-         this.readTimeOut = readTimeOut;
+         this.readTimeOut =  readTimeOut<100?1000:readTimeOut;
          return this;
       }
       
@@ -45,12 +45,12 @@ public class URLConnection {
          return this;
       }
       
-      public URLConnection build() {
-         return new URLConnection(this);
+      public CustomURLConnection build() {
+         return new CustomURLConnection(this);
       }
    }
    
-   public URLConnection(Builder builder) {
+   public CustomURLConnection(Builder builder) {
       httpMethod = builder.httpMethod;
       url = builder.url;
       tryCount = builder.tryCount;

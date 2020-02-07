@@ -62,17 +62,4 @@ public class MainController {
 		return "{\"good\":\"res\"}";
 	}
 	
-	@PostMapping("/api2")
-   @ResponseBody
-   public String httpApi(@RequestBody Map<String, Object> test) throws Exception {
-      String rs = "good";
-      
-      
-      
-      
-      
-      return "{\"good\":\"res\"}";
-   }
-
-	
 }

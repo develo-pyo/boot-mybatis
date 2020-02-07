@@ -7,7 +7,11 @@ import java.net.HttpURLConnection;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
+
+import javax.sound.sampled.AudioFormat.Encoding;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,31 +26,32 @@ import com.jpp.web.constants.ConstantsEnum;
 public class HttpUtil {
     
    private static final Logger logger = LoggerFactory.getLogger(HttpUtil.class);
+   
    private static final String UTF_8 = "UTF-8";
    
-   public String requestApi(URLConnection uc, Map<String, Object> params) {
+   public String requestApi(CustomURLConnection uc, Map<String, Object> params) {
       return requestApi(uc, params, 0, UTF_8, UTF_8);
    }
    
-   public String requestApiWithJsonForm(URLConnection uc, Map<String, Object> params) {
+   public String requestApiWithJsonForm(CustomURLConnection uc, Map<String, Object> params) {
       return requestApiWithJsonForm(uc, params, 0, UTF_8);
    }
    
-   public String requestApi(URLConnection uc, Map<String, Object> params, int expectedHttpStatus, String requestCharset, String responseCharset) {
+   public String requestApi(CustomURLConnection uc, Map<String, Object> params, int expectedHttpStatus, String requestCharset, String responseCharset) {
       
       Long start = System.currentTimeMillis();
       
-      String httpMethod = uc.getHttpMethod();
-      int tryCnt = uc.getTryCount();
-      int readTimeOut = uc.getReadTimeOut();
+      String httpMethod = uc.getHttpMethod();  
+      String surl = uc.getUrl();               
+      int tryCnt = uc.getTryCount();   
+      int readTimeOut = uc.getReadTimeOut(); 
       int connectionTimeOut = uc.getConnectionTimeOut();
-      String surl = uc.getUrl();
-      Map<String, Object> header = uc.getHeader();
+      Map<String, Object> header = uc.getHeader(); 
 
       logger.info("HTTPCONNECTION.REQUEST | URL = {} | IN_PARAMS = {}", surl, params);
       
-      String reqCharset = requestCharset==null||requestCharset.isEmpty()?"UTF-8":requestCharset;
-      String resCharset = responseCharset==null||responseCharset.isEmpty()?"UTF-8":responseCharset;
+      String reqCharset = requestCharset==null||requestCharset.isEmpty()?UTF_8:requestCharset;
+      String resCharset = responseCharset==null||responseCharset.isEmpty()?UTF_8:responseCharset;
              
       URL url = null;
       HttpURLConnection conn = null;
@@ -58,7 +63,7 @@ public class HttpUtil {
       int repCode = 0;
       
        
-      for(int i=0; i < (tryCnt<1?1:tryCnt); i++){
+      for(int i=0; i < tryCnt; i++){
           
          try {
              
@@ -82,7 +87,7 @@ public class HttpUtil {
             if(httpMethod.equalsIgnoreCase(Constants.POST) || httpMethod.equalsIgnoreCase(Constants.DELETE)){
                if(params != null){
                   postParams = makeUrlEncodedParams(params, reqCharset);
-                  conn.getOutputStream().write(postParams.getBytes("UTF-8"));
+                  conn.getOutputStream().write(postParams.getBytes(UTF_8));
                   conn.getOutputStream().flush();
                }
             }
@@ -154,7 +159,7 @@ public class HttpUtil {
    }
    
    
-   public String requestApiWithJsonForm(URLConnection uc, Map<String, Object> params, int expectedHttpStatus, String responseCharset) {
+   public String requestApiWithJsonForm(CustomURLConnection uc, Map<String, Object> params, int expectedHttpStatus, String responseCharset) {
       
       Long start = System.currentTimeMillis();
       
@@ -167,7 +172,7 @@ public class HttpUtil {
 
       logger.info("HTTPCONNECTION.REQUEST | URL = {} | IN_PARAMS = {}", surl, params);
       
-      String resCharset = responseCharset==null||responseCharset.isEmpty()?"UTF-8":responseCharset;
+      String resCharset = responseCharset==null||responseCharset.isEmpty()?UTF_8:responseCharset;
       
       URL url = null;
       HttpURLConnection conn = null;
@@ -199,7 +204,7 @@ public class HttpUtil {
             
             if(params != null){
                 postParams = makeJsonParams(params);
-                conn.getOutputStream().write(postParams.getBytes("UTF-8"));
+                conn.getOutputStream().write(postParams.getBytes(UTF_8));
                 conn.getOutputStream().flush();
             }
             
@@ -297,5 +302,6 @@ public class HttpUtil {
       }
       return json;
    }
+   
    
 }

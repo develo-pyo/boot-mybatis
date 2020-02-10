@@ -14,7 +14,7 @@ import com.jpp.main.service.MainService;
 import com.jpp.main.vo.UserVO;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = {TestConfig.class, MainService.class})
+@SpringBootTest(classes = {TestConfig.class, TestAOPConfig.class, MainService.class})
 //@SpringBootTest
 public class MainServiceTest {
 	

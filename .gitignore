@@ -34,5 +34,6 @@ out/
 ## config, class, jar
 *Config.java
 application.properties
+application_real.yml
 *.class
 *.jar

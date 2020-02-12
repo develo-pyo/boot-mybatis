@@ -8,7 +8,7 @@
       </encoder>
    </appender>
    
-   <logger name="com" level="DEBUG">
+   <logger name="com" level="DEBUG" additivity="false">
       <appender-ref ref="STDOUT" />
    </logger>
    

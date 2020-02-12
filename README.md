@@ -1,5 +1,5 @@
-##Toy project (based on Spring Boot + Mybatis)
-
+#Toy project (based on Spring Boot + Mybatis)
+=======
 1. set database (mysql)
 2. profiles setting using application.yml
 3. logback setting 

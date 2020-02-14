@@ -1,6 +1,8 @@
 package com.jpp.main.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -15,7 +17,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jpp.main.service.MainService;
@@ -50,13 +51,13 @@ public class RestApiController {
    }
    
    @GetMapping("/user/{id}")
-   public ResponseEntity<Map<String, String>> userGet(Model model) throws Exception {
+   public ResponseEntity<List<Map<String, String>>> userGet(Model model) throws Exception {
       logger.info("userGet");
 
-      Map<String, String> rs = new HashMap<>();
+      List<Map<String, String>> rs = new ArrayList<Map<String, String>>();
       
       
-      return new ResponseEntity<Map<String,String>>(rs, HttpStatus.OK);
+      return new ResponseEntity<List<Map<String,String>>>(rs, HttpStatus.OK);
    }
    
    @PutMapping("/user/{id}")

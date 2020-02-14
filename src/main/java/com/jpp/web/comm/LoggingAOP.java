@@ -41,7 +41,6 @@ public class LoggingAOP {
       for (Object obj : pjp.getArgs()) {
          
          if (obj instanceof Map) {
-            //value 가 1500자 이상인 경우 log 출력하지 않는다 (190516 추가 이정표)
             Map<String, Object> tmpMap = new HashMap<String, Object>(); 
             
             for(Map.Entry<String, Object> entry : ((Map<String, Object>) obj).entrySet()){
@@ -57,7 +56,6 @@ public class LoggingAOP {
          }  else if (obj instanceof String){
             
             try {
-               //value 가 1500자 이상인 경우 log 출력하지 않는다 (190516 추가 이정표)
                Map<String, Object> tmpMap = new HashMap<String, Object>();
                Map<String, Object> tmpMap2 = new ObjectMapper().readValue((String)obj, Map.class);
                

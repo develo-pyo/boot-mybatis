@@ -33,9 +33,6 @@ public class MainController {
 	public ModelAndView main() throws Exception {
 		ModelAndView mav = new ModelAndView("main");
 		List<UserVO> list = mainService.getUserList();
-		for(UserVO v : list) {
-			System.out.println(">> " + v.getName());
-		}
 		
 		mav.addObject("list", list);
 		return mav;
@@ -59,8 +56,6 @@ public class MainController {
 		System.out.println("api2 called !");
 		rs.put("rs", "good");
 		
-		
-//		return "{\"good\":\"res\"}";
 		return new ResponseEntity<Map<String,String>>(rs, HttpStatus.OK);
 	}
 	

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.jpp.main.mapper.MainMapper;
 import com.jpp.main.vo.UserVO;
@@ -26,7 +27,12 @@ public class MainService {
 		return mainMapper.getUserList();
 //		return mainDao.getUserList();
 	}
-		
+	
+	@Transactional
+	public int insertUser(Map<String, String> param) throws Exception {
+	   return mainMapper.insertUser(param);
+	}
+	
 	public List<Map<String, String>> getDataFromOtherServer() throws Exception {
 	   
 	   CustomURLConnection uc = new CustomURLConnection.Builder("GET", "127.0.0.1/test.do")

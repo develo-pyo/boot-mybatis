@@ -8,6 +8,12 @@
         from stbcs_emp_info
         limit 10
     </select>
- 
+   
+      
+    <insert id="insertUser" parameterType="java.util.HashMap" >
+        insert into user_info (ID, MOBILENUM, JOIN_DATE)
+			    values(#{id}, #{mobileNum}, NOW());
+    </insert>
+     
 </mapper>
 

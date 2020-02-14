@@ -10,6 +10,7 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -94,12 +95,22 @@ public class LoggingAOP {
             controller, path, addr, port, inputParam == null ? "": (inputParam.length()>=1500?CANNOT_PRINT_INPARAM:inputParam));
       logger.info("##########################################################################");
       
-            
+      int resultCode = 200;
       try {
          result = pjp.proceed();
+         if(result instanceof ResponseEntity) {
+            ResponseEntity re = (ResponseEntity)result;
+            resultCode = re.getStatusCodeValue();
+         }
          return result;
       } catch (Throwable e) {
          
+         if(result instanceof ResponseEntity) {
+            ResponseEntity re = (ResponseEntity)result;
+            resultCode = re.getStatusCodeValue();
+         }
+         
+         logger.error("error : {}", e);
       } finally {
          String outParam = "";
          if (result instanceof ModelAndView) {
@@ -120,8 +131,8 @@ public class LoggingAOP {
          
          long end = System.currentTimeMillis();
          logger.info("##########################################################################");
-         logger.info("# RESPONSE | CONTROLLER = {} | METHOD = {} | RESULT = {} | REMOTEADDR = {} | PORT = {} | TIME = {} ms | IN_PARAMS = {} | OUT_PARAMS = {}",
-               controller, path, 1, addr, port, end - start,
+         logger.info("# RESPONSE | CONTROLLER = {} | METHOD = {} | RESULT_CODE = {} | REMOTEADDR = {} | PORT = {} | TIME = {} ms | IN_PARAMS = {} | OUT_PARAMS = {}",
+               controller, path, resultCode, addr, port, end - start,
                inputParam==null?"":(inputParam.length()>=1500?CANNOT_PRINT_INPARAM:inputParam), 
                outParam);
          logger.info("##########################################################################");
